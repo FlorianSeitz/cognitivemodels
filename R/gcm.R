@@ -113,7 +113,6 @@ Gcm <- R6Class("gcm",
                        f <- as.data.frame(newdata[, grepl("^f", colnames(newdata)), with = FALSE])
                        cov <- var(f)
                        n <- nrow(unique(self$input)) + nrow(newdata)
-                       print(n)
                        return(list(cov)[rep(1,n)])
                      } else {
                        n_c <- cbind(cumsum(c == 0), cumsum(c == 1))
@@ -160,8 +159,8 @@ Gcm <- R6Class("gcm",
                    } else {
                      # if y, calculate similarity between x and y
                      identical <- FALSE
-                     y_cat <- unique(cbind(y, c = self$cat))
-                     rownames(y_cat) <- apply(y_cat[, 1:self$ndim], 1, paste0, collapse = "")
+                     # y_cat <- unique(cbind(y, c = self$cat))
+                     # rownames(y_cat) <- apply(y_cat[, 1:self$ndim], 1, paste0, collapse = "")
                      y <- as.data.frame(unique(y))
                      rownames(y) <- apply(unique(y), 1, paste0, collapse = "")
                      pairs <- rbind(rep(1:nrow(x), each = nrow(y)), rep(1:nrow(y), times = nrow(x)))
@@ -247,7 +246,6 @@ Gcm <- R6Class("gcm",
                          total_sim <- rowSums(stimulus_frequencies[, effective_trial, ]) %*% sim_mat[id, ]
                        }
                        
-                       # print(sim_to_cat1/total_sim)
                        sim_to_cat1/total_sim
                      })
                      res <- self$applychoicerule(res)
